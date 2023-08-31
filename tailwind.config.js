@@ -1,0 +1,1 @@
+// For VSCode extension intelisense when it comes to Tailwind
