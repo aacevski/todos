@@ -3,17 +3,18 @@ import * as elements from 'typed-html';
 import { Todo } from "../types/todo";
 
 function TodoItem({ id, content, completed }: Todo) {
+  console.log({ completed })
+
   return (
     <div class="bg-white rounded-lg shadow-lg w-72 overflow-hidden" hx-id="parent-div">
       <div class="flex items-center justify-between p-4">
         <div class="flex items-center">
           <input
-            hx-post={`/v1/todos/toggle/${id}`}
-            hx-target="#parent-div"
-            hx-swap="outerHTML"
+            checked={completed}
             type="checkbox"
             id="todo-item"
             class="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring focus:ring-opacity-50"
+            hx-post={`/v1/todos/toggle/${id}`}
           />
           <label for="todo-item" class="ml-2 text-lg font-semibold text-gray-700">{content}</label>
         </div>

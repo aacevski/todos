@@ -2,6 +2,7 @@ import { Elysia } from 'elysia';
 import todos from './api/todos';
 import * as elements from 'typed-html';
 import { html } from '@elysiajs/html';
+import { createApp } from './elysia/elysia-app';
 
 const BaseHtml = ({ children }: elements.Children) => `
 <!DOCTYPE html>
@@ -11,14 +12,13 @@ const BaseHtml = ({ children }: elements.Children) => `
     <title>Chad Stack</title>
     <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-  </head>Q
+  </head>
   ${children}
 </html>
 `
 
-const app = new Elysia()
+const app = createApp()
   .use(html())
-  // @ts-expect-error https://github.com/elysiajs/elysia/issues/94
   .get('/', ({ html }) => html(
     <BaseHtml>
       <body

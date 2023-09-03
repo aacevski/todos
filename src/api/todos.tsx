@@ -1,9 +1,10 @@
-import { Elysia, t } from "elysia";
+import { t } from "elysia";
 import * as elements from "typed-html";
 import { Todo } from "../types/todo";
 import { html } from "@elysiajs/html";
 import TodoItem from "../components/todo-item";
 import TodoList from "../components/todo-list";
+import { createApp } from "../elysia/elysia-app";
 
 const db: Todo[] = [
   { id: 1, content: 'Buy milk', completed: false },
@@ -12,13 +13,11 @@ const db: Todo[] = [
 
 let lastIndex = db.length;
 
-const todos = new Elysia()
-  .use(html())
-  // @ts-expect-error https://github.com/elysiajs/elysia/issues/94
+const todos = createApp()
   .get('/todos', ({ html }) => html(<TodoList todos={db} />))
   .post('/todos/toggle/:id', ({ params }) => {
     const todo = db.find(todo => todo.id === params.id);
-    console.log(todo)
+
     if (todo) {
       todo.completed = !todo.completed;
 
